@@ -13,6 +13,18 @@ services:
       - ./:/usr/src/app
     networks:
       - audits_network
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: audits_rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    networks:
+      - audits_network
   mongo:
     image: mongo:latest
     container_name: audits_mongo
